@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <!--DANNY - DELETE drawableLeft line #24 -->
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:drawableLeft="@drawable/ic_person"
+            android:gravity="center"
+            android:text="@string/current_player"
+            android:textColor="@color/colorText"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingTop="30dp">
+
+            <Button
+                android:id="@+id/A1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/right_and_bottom_border"
+                android:orientation="vertical"
+                android:tag="A1"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+            <Button
+                android:id="@+id/A2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/right_and_bottom_border"
+                android:orientation="vertical"
+                android:tag="A2"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+            <Button
+                android:id="@+id/A3"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bottom_border"
+                android:orientation="vertical"
+                android:tag="A3"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/B1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/right_and_bottom_border"
+                android:orientation="vertical"
+                android:tag="B1"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+            <Button
+                android:id="@+id/B2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/right_and_bottom_border"
+                android:orientation="vertical"
+                android:tag="B2"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+            <Button
+                android:id="@+id/B3"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bottom_border"
+                android:orientation="vertical"
+                android:tag="B3"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:paddingBottom="30dp">
+
+            <Button
+                android:id="@+id/C1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/right_border"
+                android:orientation="vertical"
+                android:tag="C1"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+            <Button
+                android:id="@+id/C2"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/right_border"
+                android:orientation="vertical"
+                android:tag="C2"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+            <Button
+                android:id="@+id/C3"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/no_border"
+                android:orientation="vertical"
+                android:tag="C3"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"></Button>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/start_button"
+            android:onClick="StartGame"
+            android:paddingBottom="15dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="15dp"
+            android:text="@string/restart_game"
+            android:textColor="@color/colorText"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

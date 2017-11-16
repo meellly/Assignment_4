@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context="edu.cse4230.schilbe.multiplayerttt.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <!--DANNY - DELETE THIS IMAGE VIEW-->
+        <ImageView
+            android:id="@+id/pic"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:src="@drawable/tic" />
+
+        <Button
+            android:id="@+id/startButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/start_button"
+            android:paddingBottom="15dp"
+            android:paddingLeft="45dp"
+            android:paddingRight="45dp"
+            android:paddingTop="15dp"
+            android:text="@string/start_game"
+            android:textColor="@color/colorText"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+</RelativeLayout>
