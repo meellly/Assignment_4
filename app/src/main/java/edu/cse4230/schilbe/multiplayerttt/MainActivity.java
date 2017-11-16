@@ -1,6 +1,9 @@
 /************************************************************
+*
 * Assignment 4 - Two player tic-tac-toe game
 * Author's - Danny Parekh, Melissa Schilbe, Hinal Wadia
+* GitHub - https://github.com/meellly/Assignment_4
+*
  ************************************************************/
 
 package edu.cse4230.schilbe.multiplayerttt;
