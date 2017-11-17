@@ -1,9 +1,9 @@
 /************************************************************
-*
-* Assignment 4 - Two player tic-tac-toe game
-* Author's - Danny Parekh, Melissa Schilbe, Hinal Wadia
-* GitHub - https://github.com/meellly/Assignment_4
-*
+ *
+ * Assignment 4 - Two player tic-tac-toe game
+ * Author's - Danny Parekh, Melissa Schilbe, Hinal Wadia
+ * GitHub - https://github.com/meellly/Assignment_4
+ *
  ************************************************************/
 
 package edu.cse4230.schilbe.multiplayerttt;
@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(view.getContext(), Settings.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(i);
-
             }
         });
     }

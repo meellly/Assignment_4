@@ -3,9 +3,20 @@
     <color name="colorPrimary">#34495E</color>
     <color name="colorSecondary">#16A085</color>
     <color name="colorText">#ECF0F1</color>
+    <color name="colorTextHint">#7effffff</color>
+    <color name="colorTextPressed">#d3d4d4</color>
     <color name="buttonPressed">#0D6453</color>
     <color name="buttonFocused">#22E1BB</color>
     <color name="buttonDefault">#16A085</color>
+
+    <color name="profileOrange">#F39C12</color>
+    <color name="profileOrangePressed">#C77C06</color>
+    <color name="profilePurple">#9B59B6</color>
+    <color name="profilePurplePressed">#713e86</color>
+    <color name="profileGreen">#2ECC71</color>
+    <color name="profileGreenPressed">#23AB5D</color>
+    <color name="profileRed">#E74C3C</color>
+    <color name="profileRedPressed">#B73D30</color>
 
     <!--NOT USED-->
     <color name="colorPrimaryDark">#34495E</color>

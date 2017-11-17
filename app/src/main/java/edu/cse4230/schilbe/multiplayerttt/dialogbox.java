@@ -15,6 +15,8 @@ public class dialogbox extends AppCompatActivity {
     String currrentPlayerName = null;
     String otherPlayerNumber = null;
     String otherPlayerName = null;
+    String currentPlayerIconColor = " ";
+    String otherPlayerIconColor = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,10 @@ public class dialogbox extends AppCompatActivity {
 
         //***** get values from RECEIVE_INVITATION *****//
         currrentPlayerName = setupIntent.getStringExtra("CurrentPlayerName");
+        currentPlayerIconColor = setupIntent.getStringExtra("CurrentPlayerIconColor");
         otherPlayerName = setupIntent.getStringExtra("InviterPlayerName");
         otherPlayerNumber = setupIntent.getStringExtra("InviterPlayerNumber");
+        otherPlayerIconColor = setupIntent.getStringExtra("InviterPlayerColor");
 
         //DEBUG
         //Toast.makeText(getApplicationContext(), "Current: " + currrentPlayerName + ", Inviter: " + otherPlayerName + ", Inviter Number: " + otherPlayerNumber, Toast.LENGTH_LONG).show();
@@ -48,7 +52,8 @@ public class dialogbox extends AppCompatActivity {
                 String brType = "$#$#ACCEPT_INVITATION";
                 String currentPlayer = otherPlayerName;
                 String otherPlayer = currrentPlayerName;
-                String[] message_array = {brType, currentPlayer, otherPlayer};
+                String otherPlayerColor = currentPlayerIconColor;
+                String[] message_array = {brType, currentPlayer, otherPlayer, otherPlayerColor};
 
                 //Convert array to string
                 StringBuilder stringBuilder = new StringBuilder();
@@ -71,9 +76,11 @@ public class dialogbox extends AppCompatActivity {
                 startGame.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startGame.putExtra("CurrentPlayerId", currentPlayerId);
                 startGame.putExtra("CurrentPlayerName", currrentPlayerName);
+                startGame.putExtra("CurrentPlayerIconColor", currentPlayerIconColor);
                 startGame.putExtra("OtherPlayerId", otherPlayerId);
                 startGame.putExtra("OtherPlayerName", otherPlayerName);
                 startGame.putExtra("OtherPlayerNumber", otherPlayerNumber);
+                startGame.putExtra("OtherPlayerIconColor", otherPlayerIconColor);
                 startActivity(startGame);
             }
         });

@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.provider.Telephony;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,22 +25,29 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
 
     String currentPlayerId = null;
     String currentPlayerName = null;
+    String currentPlayerIconColor = " ";
     String otherPlayerId = null;
     String otherPlayerName = null;
     String otherPlayerNumber = null;
+    String otherPlayerIconColor = " ";
 
     String currentPlayerTurn = null;
     String firstPlayerWin = null;
     String secondPlayerWin = null;
 
     String playersTurnName = null;
+    String playersIconColor = " ";
     String firstPlayer = null;
     String secondPlayer = null;
+    String firstPlayerColor = " ";
+    String secondPlayerColor = " ";
 
     Button A1, A2, A3, B1, B2, B3, C1, C2, C3, reset;
     TextView currentPlayer;
+    ImageView profileIcon;
     int count = 0;
     int playersTurn = 0;
+    ImageView imageView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +59,29 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
         //***** get values from START_GAME *****//
         currentPlayerId = setupIntent.getStringExtra("CurrentPlayerId");
         currentPlayerName = setupIntent.getStringExtra("CurrentPlayerName");
+        currentPlayerIconColor = setupIntent.getStringExtra("CurrentPlayerIconColor");
         otherPlayerId = setupIntent.getStringExtra("OtherPlayerId");
         otherPlayerName = setupIntent.getStringExtra("OtherPlayerName");
         otherPlayerNumber = setupIntent.getStringExtra("OtherPlayerNumber");
+        otherPlayerIconColor = setupIntent.getStringExtra("OtherPlayerIconColor");
 
         //Setup who goes first
         if (currentPlayerId.equals("0")) {
             firstPlayer = currentPlayerName;
             secondPlayer = otherPlayerName;
+            firstPlayerColor = currentPlayerIconColor;
+            secondPlayerColor = otherPlayerIconColor;
             playersTurn = 0;
         } else if (currentPlayerId.equals("1")) {
             firstPlayer = otherPlayerName;
             secondPlayer = currentPlayerName;
+            firstPlayerColor = otherPlayerIconColor;
+            secondPlayerColor = currentPlayerIconColor;
             playersTurn = 1;
         }
 
         playersTurnName = firstPlayer;
+        playersIconColor = firstPlayerColor;
 
         //Setup strings to display
         firstPlayerWin = firstPlayer + " wins!";
@@ -77,6 +94,7 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
 
         //link the buttons to the layout file
         currentPlayer = (TextView) findViewById(R.id.text);
+        profileIcon = (ImageView) findViewById(R.id.profileIcon);
         A1 = (Button) findViewById(R.id.A1);
         A2 = (Button) findViewById(R.id.A2);
         A3 = (Button) findViewById(R.id.A3);
@@ -87,10 +105,29 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
         C2 = (Button) findViewById(R.id.C2);
         C3 = (Button) findViewById(R.id.C3);
         reset = (Button) findViewById(R.id.reset);
+        imageView = (ImageView) findViewById(R.id.cat);
 
         currentPlayer.setText(firstPlayer + "'s Turn");
 
-        //set the clickListener for the buttons
+        //Set player's icon
+        switch (firstPlayerColor) {
+            case "orange":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileOrange));
+                break;
+            case "purple":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profilePurple));
+                break;
+            case "green":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileGreen));
+                break;
+            case "red":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileRed));
+                break;
+            default:
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.colorText));
+        }
+
+        //Set the clickListener for the buttons
         A1.setOnClickListener(this);
         A2.setOnClickListener(this);
         A3.setOnClickListener(this);
@@ -126,7 +163,7 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
                         String number = m.getDisplayOriginatingAddress();
                         String message = m.getDisplayMessageBody();
 
-                        //Extract elements from message: [0] broadcast receiver type, [1] player's turn name, [2] symbol to set cell, [3] id of cell (button) that was clicked
+                        //Extract elements from message: [0] broadcast receiver type, [1] player's turn name, [2] symbol to set cell, [3] id of cell (button) that was clicked, [4] player's icon color
                         String[] string_to_array = message.split(",");
 
                         String br_type = string_to_array[0];
@@ -136,10 +173,30 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
                             String players_turn_name = string_to_array[1];
                             String cell_clicked_symbol = string_to_array[2];
                             String cell_clicked_id = string_to_array[3];
+                            String players_icon_color = string_to_array[4];
 
                             playersTurnName = players_turn_name;
                             currentPlayerTurn = playersTurnName + "'s Turn";
                             currentPlayer.setText(currentPlayerTurn);
+                            playersIconColor = players_icon_color;
+
+                            //Set player's icon
+                            switch (playersIconColor) {
+                                case "orange":
+                                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileOrange));
+                                    break;
+                                case "purple":
+                                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profilePurple));
+                                    break;
+                                case "green":
+                                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileGreen));
+                                    break;
+                                case "red":
+                                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileRed));
+                                    break;
+                                default:
+                                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.colorText));
+                            }
 
                             // Enable cells
                             A1.setEnabled(true);
@@ -194,7 +251,6 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
         };
         registerReceiver(brGame, filterGame);
     }
-
 
     @Override
     public void onClick(View view) {
@@ -377,11 +433,23 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
                 reset.callOnClick();
             }
         } else {
-            if (count == 9) {
+            if (!(A1.getText().toString().equals("")) &&
+                    !(A2.getText().toString().equals("")) &&
+                    !(A3.getText().toString().equals("")) &&
+                    !(B1.getText().toString().equals("")) &&
+                    !(B2.getText().toString().equals("")) &&
+                    !(B3.getText().toString().equals("")) &&
+                    !(C1.getText().toString().equals("")) &&
+                    !(C2.getText().toString().equals("")) &&
+                    !(C3.getText().toString().equals(""))) {
+
+                imageView.setVisibility(View.VISIBLE);
+                imageView.bringToFront();
+
                 Toast.makeText(this, "Cats Game!", Toast.LENGTH_SHORT).show();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
-                    reset.callOnClick();
-                }
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+//                    reset.callOnClick();
+//                }
             }
         }
     }
@@ -405,20 +473,42 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
             if (playersTurnName.equals(firstPlayer)) {
                 game_button.setText("X");
                 playersTurnName = secondPlayer;
+                playersIconColor = secondPlayerColor;
+
             } else if (playersTurnName.equals(secondPlayer)) {
                 game_button.setText("O");
                 playersTurnName = firstPlayer;
+                playersIconColor = firstPlayerColor;
             }
 
             currentPlayerTurn = playersTurnName + "'s Turn";
             currentPlayer.setText(currentPlayerTurn);
+
+            //Set player's icon
+            switch (playersIconColor) {
+                case "orange":
+                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileOrange));
+                    break;
+                case "purple":
+                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profilePurple));
+                    break;
+                case "green":
+                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileGreen));
+                    break;
+                case "red":
+                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileRed));
+                    break;
+                default:
+                    DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.colorText));
+            }
 
             //***** SEND_UPDATE *****//
             String brType = "$#$#UPDATE_GAME";
             String players_turn_name = playersTurnName;
             String button_clicked_symbol = game_button.getText().toString();
             String button_clicked_id = String.valueOf(game_button.getTag());
-            String[] message_array = {brType, players_turn_name, button_clicked_symbol, button_clicked_id};
+            String players_icon_color = playersIconColor;
+            String[] message_array = {brType, players_turn_name, button_clicked_symbol, button_clicked_id, players_icon_color};
 
             StringBuilder strBuilder = new StringBuilder();
             for (int i = 0; i < message_array.length; i++) {
@@ -472,5 +562,26 @@ public class PlayGame extends AppCompatActivity implements View.OnClickListener 
         }
         count = 0;
         currentPlayer.setText(firstPlayer + "'s Turn");
+
+        //Set player's icon
+        switch (firstPlayerColor) {
+            case "orange":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileOrange));
+                break;
+            case "purple":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profilePurple));
+                break;
+            case "green":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileGreen));
+                break;
+            case "red":
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.profileRed));
+                break;
+            default:
+                DrawableCompat.setTint(profileIcon.getDrawable(), ContextCompat.getColor(getBaseContext(), R.color.colorText));
+        }
+
+        imageView.setVisibility(View.GONE);
+
     }
 }

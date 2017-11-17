@@ -23,6 +23,7 @@ public class SetupGame extends AppCompatActivity {
     EditText phoneNumber = null, messageText = null;
     Button sendInvite = null;
     String currentPlayerName = null;
+    String iconColor = " ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +32,13 @@ public class SetupGame extends AppCompatActivity {
 
         settingsIntent = getIntent();
         currentPlayerName = settingsIntent.getStringExtra("PlayerInputName");
+        iconColor = settingsIntent.getStringExtra("IconColor");
 
         phoneNumber = (EditText) findViewById(R.id.editTextNumber);
         sendInvite = (Button) findViewById(R.id.buttonSendInvitation);
 
 
-        //***** SEND_INVITATION *****//
+        //***** SEND_INVITATION *****//n
         sendInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -45,7 +47,8 @@ public class SetupGame extends AppCompatActivity {
                 //Build array for all messages that need to be sent to Broadcast Receiver
                 String brType = "$#$#SEND_INVITE";
                 String playerName = currentPlayerName;
-                String[] message_array = {brType, playerName};
+                String playerColor = iconColor;
+                String[] message_array = {brType, playerName, playerColor};
 
                 //Convert array to string
                 StringBuilder stringBuilder = new StringBuilder();
@@ -75,11 +78,13 @@ public class SetupGame extends AppCompatActivity {
                         String brType = message_string_array[0];
                         String otherPlayerNumber = number;
 
+
                         //***** RECEIVE_ACCEPT *****//
                         if (brType.equals("$#$#ACCEPT_INVITATION")) {
 
                             String currentPlayerName = message_string_array[1];
                             String otherPlayerName = message_string_array[2];
+                            String otherPlayerColor = message_string_array[3];
                             String currentPlayerId = "0";
                             String otherPlayerId = "1";
 
@@ -90,9 +95,11 @@ public class SetupGame extends AppCompatActivity {
                             startGame.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                             startGame.putExtra("CurrentPlayerId", currentPlayerId);
                             startGame.putExtra("CurrentPlayerName", currentPlayerName);
+                            startGame.putExtra("CurrentPlayerIconColor", iconColor);
                             startGame.putExtra("OtherPlayerId", otherPlayerId);
                             startGame.putExtra("OtherPlayerName", otherPlayerName);
                             startGame.putExtra("OtherPlayerNumber", otherPlayerNumber);
+                            startGame.putExtra("OtherPlayerIconColor", otherPlayerColor);
                             startActivity(startGame);
 
 
@@ -100,18 +107,20 @@ public class SetupGame extends AppCompatActivity {
                         } else if (brType.equals("$#$#SEND_INVITE")) {
 
                             String otherPlayerName = message_string_array[1];
+                            String otherPlayerColor = message_string_array[2];
 
                             Intent dialogIntent = new Intent(context, dialogbox.class);
                             dialogIntent.putExtra("CurrentPlayerName", currentPlayerName);
+                            dialogIntent.putExtra("CurrentPlayerIconColor", iconColor);
                             dialogIntent.putExtra("InviterPlayerName", otherPlayerName);
                             dialogIntent.putExtra("InviterPlayerNumber", number);
+                            dialogIntent.putExtra("InviterPlayerColor", otherPlayerColor);
                             startActivity(dialogIntent);
 
 
                             //***** RECEIVE_DECLINE *****//
                         } else if (brType.equals("$#$#DECLINE_INVITATION")) {
                             String otherPlayerName = message_string_array[1];
-
                             Toast.makeText(getApplicationContext(), otherPlayerName + " has declined your invitation", Toast.LENGTH_SHORT).show();
                         }
                     }
